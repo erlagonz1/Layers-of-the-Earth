@@ -17,6 +17,7 @@ class Play extends Phaser.Scene {
         graphics.fillGradientStyle(0x108314, 0x108314, 0x4b382a, 0x4b382a, 1)
         graphics.fillRect(0, 465, 960, 30)
 
+
         // place all tile sprites
         this.toplayerbg = this.add.tileSprite(0, 0, 960, 225, 'space2').setOrigin(0, 0)
         this.midlayerbg = this.add.tileSprite(0, 255, 960, 225, 'grassy').setOrigin(0, 0)
@@ -33,9 +34,11 @@ class Play extends Phaser.Scene {
         })
 
 
-
         this.player = this.physics.add.sprite(75, 390, 'character', 1).setScale(3)
         this.player.body.setCollideWorldBounds(true)
+
+        this.alienface = this.physics.add.sprite(500, 390, 'alien', 1).setScale(2.5)
+
 
         this.player.body.setSize(32, 32).setOffset(8,16)
 

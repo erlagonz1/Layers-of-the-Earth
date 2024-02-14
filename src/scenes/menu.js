@@ -8,6 +8,7 @@ class Menu extends Phaser.Scene {
         this.load.image('space2', './assets/space2.png')
         this.load.image('grassy', './assets/grass-with-cloud.png')
         this.load.image('underground', './assets/underground.png')
+        this.load.image('alien', './assets/alienface.png')
         this.load.spritesheet('character', './assets/Character_002.png', {
             frameWidth: 48
         })
