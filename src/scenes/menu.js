@@ -9,9 +9,14 @@ class Menu extends Phaser.Scene {
         this.load.image('grassy', './assets/grass-with-cloud.png')
         this.load.image('underground', './assets/underground.png')
         this.load.image('alien', './assets/alienface.png')
-        this.load.spritesheet('character', './assets/Character_002.png', {
+        this.load.spritesheet('character', './assets/pinkCharacter.png', {
             frameWidth: 48
         })
+
+        //didn't have time to implement audio
+        this.load.audio('sfx-select', './assets/sfx-select.wav')
+        this.load.audio('sfx-explosion', './assets/sfx-explosion.wav')
+        this.load.audio('sfx-shot', './assets/sfx-shot.wav')
     }
 
     create() {
@@ -43,7 +48,7 @@ class Menu extends Phaser.Scene {
             fixedWidth: 500,
             wordWrap: { width: 500 }
         }
-        this.scoreLeft = this.add.text(borderUISize + borderPadding, borderUISize + borderPadding*2, this.p1Score, menuConfig)
+        this.scoreLeft = this.add.text(game.config.height/15 + game.config.height/45, game.config.height/15 + game.config.height/45*2, this.p1Score, menuConfig)
 
         // display menu text
         this.add.text(game.config.width/2, game.config.height/2 - 150, 'Layers of the Earth', menuConfig).setOrigin(0.5)

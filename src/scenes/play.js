@@ -4,7 +4,7 @@ class Play extends Phaser.Scene {
     }
 
     create() {
-
+        // set enemy spawn point to most generous part of the screen, declare boolean for if game is over or not
         spawnPoint = 300
         this.lost = false
 
@@ -40,7 +40,7 @@ class Play extends Phaser.Scene {
             })
         })
 
-        
+        // set up aliens
         this.alienSpeed = -400
 
         this.alienGroup = this.add.group({
@@ -50,14 +50,6 @@ class Play extends Phaser.Scene {
         this.time.delayedCall(2500, () => { 
             this.addAlien(); 
         });
-
-        // this.spawnAliens = this.time.addEvent({
-        //     delay: 2500,
-        //     callback:  this.addAlien,
-        //     callbackScope: this,
-        //     loop: true
-        // })
-
 
         // define keys
         keyRESET = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R)
@@ -84,7 +76,7 @@ class Play extends Phaser.Scene {
         this.highScoreText = this.add.text(game.config.width - 125, 20, highScore, scoreConfig)
 
 
-
+        // add timers to increase both difficulty and score
         this.difficultyTimer = this.time.addEvent({
             delay: 1000,
             callback: this.levelBump,
@@ -99,25 +91,22 @@ class Play extends Phaser.Scene {
             loop: true
         });
 
-
-        //this.alienface = this.physics.add.sprite(500, 390, 'alien', 1).setScale(2)
-
         this.player.body.setSize(32, 32).setOffset(8,16)
-        // this.PLAYER_VELOCITY = 400
 
         cursors = this.input.keyboard.createCursorKeys()
     }
     
 
     update(){
+        //scrolling tile sprites
         this.toplayerbg.tilePositionX += 4
         this.midlayerbg.tilePositionX += 4
         this.botlayerbg.tilePositionX += 4
 
+        //check if player is lost and they want to restart or go to menu
         if(this.lost && Phaser.Input.Keyboard.JustDown(keyRESET)) {
             this.scene.restart()
         }
-
         if(this.lost && Phaser.Input.Keyboard.JustDown(keyMENU)) {
             this.scene.start('menuScene')
         }
@@ -172,7 +161,7 @@ class Play extends Phaser.Scene {
             stopUp = false
             stopDown = false
 
-            //update score
+            // update score
             if (this.p1Score >= highScore) {
                 highScore = this.p1Score
             }
@@ -180,12 +169,14 @@ class Play extends Phaser.Scene {
             this.highScoreText.text = highScore
         }
 
-        this.physics.world.collide(this.player, this.alienGroup, this.alienCollision, null, this);
+        this.physics.world.overlap(this.player, this.alienGroup, this.alienCollision, null, this);
     }
 
     addAlien() {
         let speedVariance =  Phaser.Math.Between(0, 100);
         let alien = new Alien(this, this.alienSpeed - speedVariance);
+        alien.setOrigin(0,0)
+        alien.body.setCircle(20)
         this.alienGroup.add(alien);
     }
 
@@ -194,10 +185,11 @@ class Play extends Phaser.Scene {
         this.gameOver()
     }
 
+    // make enemies spawn closer over time
     levelBump() {
         level += 1
         if (spawnPoint > 50){
-            spawnPoint -= 3
+            spawnPoint -= 2
         }
     }
 
@@ -205,6 +197,7 @@ class Play extends Phaser.Scene {
         this.p1Score += 1
     }
 
+    // display game over text and set lost to true
     gameOver() {
         let scoreConfig = {
             fontFamily: 'Georgia',

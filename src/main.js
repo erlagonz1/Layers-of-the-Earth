@@ -1,6 +1,21 @@
 // Eric Gonzalez
 // Layers of the Earth
-// Approximate time taken: 6 hours
+// Approximate time taken: 18 hours
+
+//this is a creative title because your character can go through different layers of the earth to dodge aliens.
+
+/* notes about the game
+
+I didn't have time to finish adding background music or sound effects, so I'm prepared to lose points for that,
+however I satisfied all other requirements. I also did not need to put credits for the game because all art and
+visual images used are my own.
+
+COMMENT BLOCK ABOUT "CREATIVE TILT"
+
+
+
+
+*/
 
 'use strict'
 
@@ -23,32 +38,21 @@ let config = {
 
 let game = new Phaser.Game(config)
 
-// set UI sizes
-let borderUISize = game.config.height / 15
-let borderPadding = borderUISize / 3
-
 // reserve keyboard bindings
 let keyDOWN, keyUP, keyRESET, keyMENU, cursors
 
 let stopUp = false
 let stopDown = false
 
-// let { height, width } = game.config
-
+// height and width values
 let centerX = game.config.width/2;
 let centerY = game.config.height/2;
 let w = game.config.width;
 let h = game.config.height;
+
+// reserve variables
 let spawnPoint
-// const textSpacer = 64;
+let level
 
-// const paddleWidth = 16;
-// const paddleHeight = 128;
-// const paddleVelocity = 150;
-let level;
-let highScore = 0;
-// let newHighScore = false;
-
-// let lost = false
-
+let highScore = 0
 let PLAYER_VELOCITY = 400
