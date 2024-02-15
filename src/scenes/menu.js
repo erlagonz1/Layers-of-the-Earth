@@ -18,11 +18,11 @@ class Menu extends Phaser.Scene {
 
         // text styles
         let menuConfig = {
-            fontFamily: 'Courier',
-            fontSize: '28px',
+            fontFamily: 'Georgia',
+            fontSize: '45px',
             backgroundColor: '#F3B141',
             color: '#843605',
-            align: 'right',
+            align: 'center',
             padding: {
                 top: 5,
                 bottom: 5,
@@ -31,25 +31,26 @@ class Menu extends Phaser.Scene {
         }
 
         let textConfig = {
-            fontFamily: 'Courier',
+            fontFamily: 'Georgia',
             fontSize: '20px',
             backgroundColor: '#F3B141',
             color: '#843605',
-            align: 'right',
+            align: 'center',
             padding: {
                 top: 5,
                 bottom: 5,
             },
-            fixedWidth: 0
+            fixedWidth: 500,
+            wordWrap: { width: 500 }
         }
         this.scoreLeft = this.add.text(borderUISize + borderPadding, borderUISize + borderPadding*2, this.p1Score, menuConfig)
 
         // display menu text
-        this.add.text(game.config.width/2, game.config.height/2 - borderUISize - borderPadding, 'Transverse Universe', menuConfig).setOrigin(0.5)
-        this.add.text(game.config.width/2, game.config.height/2, 'Use up and down arrows to move between worlds and avoid obstacles', textConfig).setOrigin(0.5)
+        this.add.text(game.config.width/2, game.config.height/2 - 150, 'Layers of the Earth', menuConfig).setOrigin(0.5)
+        this.add.text(game.config.width/2, game.config.height/2 + 40, "Aliens have invaded the planet! Use the up and down keys to move your character. The left and right arrow keys let you travel up and down layers (respectively) when you are close to a layer border. Though be careful, transferring between layers has it's consequences!" , textConfig).setOrigin(0.5)
         menuConfig.backgroundColor = '#00FF00'
         menuConfig.color = '#000'
-        this.add.text(game.config.width/2, game.config.height/2 + borderUISize + borderPadding, 'Press down to begin', menuConfig).setOrigin(0.5)
+        this.add.text(game.config.width/2, game.config.height/2 + 200, 'Press down to begin', menuConfig).setOrigin(0.5)
 
         keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN)
         keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP)

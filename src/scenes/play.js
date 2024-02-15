@@ -5,6 +5,9 @@ class Play extends Phaser.Scene {
 
     create() {
 
+        spawnPoint = 300
+        this.lost = false
+
         // add gradients for smoother transitions between the layers
         const graphics = this.add.graphics()
 
@@ -20,6 +23,12 @@ class Play extends Phaser.Scene {
         this.midlayerbg = this.add.tileSprite(0, 255, 960, 225, 'grassy').setOrigin(0, 0)
         this.botlayerbg = this.add.tileSprite(0, 495, 960, 225, 'underground').setOrigin(0, 0)
 
+
+        // initialize character and alien spawns
+        this.player = this.physics.add.sprite(75, 390, 'character', 1).setScale(2)
+        this.player.body.setCollideWorldBounds(true)
+
+    
         // set up animation
         this.anims.create({
             key: 'walk-right',
@@ -31,10 +40,7 @@ class Play extends Phaser.Scene {
             })
         })
 
-        // initialize character and alien spawns
-        this.player = this.physics.add.sprite(75, 390, 'character', 1).setScale(2)
-        this.player.body.setCollideWorldBounds(true)
-
+        
         this.alienSpeed = -400
 
         this.alienGroup = this.add.group({
@@ -97,18 +103,9 @@ class Play extends Phaser.Scene {
         //this.alienface = this.physics.add.sprite(500, 390, 'alien', 1).setScale(2)
 
         this.player.body.setSize(32, 32).setOffset(8,16)
-        //this.PLAYER_VELOCITY = 400
+        // this.PLAYER_VELOCITY = 400
 
         cursors = this.input.keyboard.createCursorKeys()
-
-
-        
-    }
-
-    addAlien() {
-        let speedVariance =  Phaser.Math.Between(0, 100);
-        let alien = new Alien(this, this.alienSpeed - speedVariance);
-        this.alienGroup.add(alien);
     }
     
 
@@ -117,13 +114,18 @@ class Play extends Phaser.Scene {
         this.midlayerbg.tilePositionX += 4
         this.botlayerbg.tilePositionX += 4
 
-        if(lost && Phaser.Input.Keyboard.JustDown(keyRESET)) {
-            lost = false
+        if(this.lost && Phaser.Input.Keyboard.JustDown(keyRESET)) {
             this.scene.restart()
         }
 
+        if(this.lost && Phaser.Input.Keyboard.JustDown(keyMENU)) {
+            this.scene.start('menuScene')
+        }
+
+
+
         // if player hasn't lost yet
-        if (!lost) {
+        if (!this.lost) {
 
             let playerVector = new Phaser.Math.Vector2(0, 0)
             let playerDirection = 'right'
@@ -181,6 +183,12 @@ class Play extends Phaser.Scene {
         this.physics.world.collide(this.player, this.alienGroup, this.alienCollision, null, this);
     }
 
+    addAlien() {
+        let speedVariance =  Phaser.Math.Between(0, 100);
+        let alien = new Alien(this, this.alienSpeed - speedVariance);
+        this.alienGroup.add(alien);
+    }
+
     alienCollision() {
         this.player.destroy()
         this.gameOver()
@@ -199,20 +207,20 @@ class Play extends Phaser.Scene {
 
     gameOver() {
         let scoreConfig = {
-            fontFamily: 'Courier',
+            fontFamily: 'Georgia',
             fontSize: '28px',
             backgroundColor: '#F3B141',
             color: '#843605',
-            align: 'right',
+            align: 'center',
             padding: {
                 top: 5,
                 bottom: 5,
             },
-            fixedWidth: 100
+            fixedWidth: 600
         }
         this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', scoreConfig).setOrigin(0.5)
         this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press (R) to Restart or (M) for Menu', scoreConfig).setOrigin(0.5)
-        lost = true
+        this.lost = true
     }
 
 }
