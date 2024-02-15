@@ -5,6 +5,7 @@
 'use strict'
 
 let config = {
+    parent: 'myGame',
     type: Phaser.AUTO,
     width: 960, //used to be 640
     height: 720, //used to be 480
@@ -27,7 +28,7 @@ let borderUISize = game.config.height / 15
 let borderPadding = borderUISize / 3
 
 // reserve keyboard bindings
-let keyDOWN, keyUP, cursors
+let keyDOWN, keyUP, keyRESET, keyMENU, cursors
 
 let stopUp = false
 let stopDown = false
@@ -38,11 +39,16 @@ let centerX = game.config.width/2;
 let centerY = game.config.height/2;
 let w = game.config.width;
 let h = game.config.height;
-const textSpacer = 64;
+let spawnPoint = 300
+// const textSpacer = 64;
 
-const paddleWidth = 16;
-const paddleHeight = 128;
-const paddleVelocity = 150;
+// const paddleWidth = 16;
+// const paddleHeight = 128;
+// const paddleVelocity = 150;
 let level;
-let highScore;
-let newHighScore = false;
+let highScore = 0;
+// let newHighScore = false;
+
+let lost = false
+
+let PLAYER_VELOCITY = 400
