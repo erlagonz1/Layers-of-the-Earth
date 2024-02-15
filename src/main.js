@@ -1,6 +1,6 @@
 // Eric Gonzalez
 // Layers of the Earth
-// Approximate time taken: 4 hours
+// Approximate time taken: 6 hours
 
 'use strict'
 
@@ -29,4 +29,20 @@ let borderPadding = borderUISize / 3
 // reserve keyboard bindings
 let keyDOWN, keyUP, cursors
 
+let stopUp = false
+let stopDown = false
+
 // let { height, width } = game.config
+
+let centerX = game.config.width/2;
+let centerY = game.config.height/2;
+let w = game.config.width;
+let h = game.config.height;
+const textSpacer = 64;
+
+const paddleWidth = 16;
+const paddleHeight = 128;
+const paddleVelocity = 150;
+let level;
+let highScore;
+let newHighScore = false;

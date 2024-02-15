@@ -34,10 +34,10 @@ class Play extends Phaser.Scene {
         })
 
 
-        this.player = this.physics.add.sprite(75, 390, 'character', 1).setScale(3)
+        this.player = this.physics.add.sprite(75, 390, 'character', 1).setScale(2)
         this.player.body.setCollideWorldBounds(true)
 
-        this.alienface = this.physics.add.sprite(500, 390, 'alien', 1).setScale(2.5)
+        this.alienface = this.physics.add.sprite(500, 390, 'alien', 1).setScale(2)
 
 
         this.player.body.setSize(32, 32).setOffset(8,16)
@@ -48,7 +48,6 @@ class Play extends Phaser.Scene {
         // keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN)
 
         // this.playerLevel = 0
-
         
     }
 
@@ -77,12 +76,51 @@ class Play extends Phaser.Scene {
         // }
 
         //handle up and down
-        if(cursors.up.isDown) {
+        // if(cursors.up.isDown && this.player.y < 225 || this.player.y == 465) {
+        //     playerVector.y = -1
+        //     this.player.setY(this.player.y - 30)
+        //     //playerDirection = 'up'
+        // } else if (cursors.down.isDown && this.player.y == 225 || this.player.y == 465) {
+        //     playerVector.y = 1
+        //     this.player.setY(this.player.y + 30)
+        //     //playerDirection = 'down'
+        // } else 
+
+        if (this.player.y > 182 && this.player.y < 195) {
+            stopDown = true
+        } else if (this.player.y > 405 && this.player.y < 421) {
+            stopDown = true
+        }
+
+        if (this.player.y > 275 && this.player.y < 288) {
+            stopUp = true
+        } else if (this.player.y > 518 && this.player.y < 530) {
+            stopUp = true
+        }
+        
+        if(cursors.up.isDown && !stopUp) {
             playerVector.y = -1
             //playerDirection = 'up'
-        } else if(cursors.down.isDown) {
+        } else if(cursors.down.isDown && !stopDown) {
             playerVector.y = 1
             //playerDirection = 'down'
+        }
+
+
+        console.log(this.player.y)
+
+        if (cursors.right.isDown && this.player.y > 175 && this.player.y < 195) {
+            this.player.y = 285
+            this.player.x += 15
+        } else if (cursors.right.isDown && this.player.y > 400 && this.player.y < 421) {
+            this.player.y = 525
+            this.player.x += 15
+        } else if (cursors.left.isDown && this.player.y > 275 && this.player.y < 293) {
+            this.player.y = 190
+            this.player.x += 15
+        } else if (cursors.left.isDown && this.player.y > 505 && this.player.y < 526) {
+            this.player.y = 420
+            this.player.x += 15
         }
 
         
@@ -92,6 +130,9 @@ class Play extends Phaser.Scene {
         let playerMovement = 'walk-right'
         //playerVector.length() ? playerMovement = 'walk' : playerMovement = 'idle'
         this.player.play(playerMovement, true)
+
+        stopUp = false
+        stopDown = false
     }
 
 }
