@@ -11,7 +11,7 @@ class Play extends Phaser.Scene {
         // background music
         this.bgm = this.sound.add('bgm', { 
             mute: false,
-            volume: 4,
+            volume: 0.75,
             rate: 1,
             loop: true 
         });
@@ -151,15 +151,19 @@ class Play extends Phaser.Scene {
 
             // moving between layers using left and right keys
             if (cursors.right.isDown && this.player.y > 175 && this.player.y < 195) {
+                this.sound.play('top-layer', { volume: 2 })
                 this.player.y = 285
                 this.player.x += 15
             } else if (cursors.right.isDown && this.player.y > 400 && this.player.y < 421) {
+                this.sound.play('bottom-layer', { volume: 2 })
                 this.player.y = 525
                 this.player.x += 15
             } else if (cursors.left.isDown && this.player.y > 275 && this.player.y < 293) {
+                this.sound.play('top-layer', { volume: 2 })
                 this.player.y = 190
                 this.player.x += 15
             } else if (cursors.left.isDown && this.player.y > 505 && this.player.y < 526) {
+                this.sound.play('bottom-layer', { volume: 2 })
                 this.player.y = 420
                 this.player.x += 15
             }
@@ -193,6 +197,7 @@ class Play extends Phaser.Scene {
 
     alienCollision() {
         this.player.destroy()
+        this.sound.play('game-over', { volume: 2 })
         this.gameOver()
     }
 

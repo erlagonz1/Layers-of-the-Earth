@@ -2,13 +2,12 @@
 // Layers of the Earth
 // Approximate time taken: 18 hours
 
-//this is a creative title because your character can go through different layers of the earth to dodge aliens.
+// this is a creative title because your character can go through different "layers of the Earth" to dodge aliens.
 
 /* notes about the game
 
-I didn't have time to finish adding background music or sound effects, so I'm prepared to lose points for that,
-however I satisfied all other requirements. I also did not need to put credits for the game because all art and
-visual images used are my own.
+I submitted the version without music before the due date. I have now added all of the sound effects and background music.
+All project requirements have now been met, however it is almost two hours late.
 
 COMMENT BLOCK ABOUT "CREATIVE TILT"
 

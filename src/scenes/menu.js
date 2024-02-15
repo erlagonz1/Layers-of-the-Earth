@@ -13,10 +13,11 @@ class Menu extends Phaser.Scene {
             frameWidth: 48
         })
 
-        //didn't have time to implement audio
-        this.load.audio('sfx-select', './assets/sfx-select.wav')
-        this.load.audio('sfx-explosion', './assets/sfx-explosion.wav')
-        this.load.audio('sfx-shot', './assets/sfx-shot.wav')
+        // load audio
+        this.load.audio('start-play', './assets/start-play.wav')
+        this.load.audio('top-layer', './assets/top-layer.wav')
+        this.load.audio('bottom-layer', './assets/bottom-layer.mp3')
+        this.load.audio('game-over', './assets/game-over.wav')
         this.load.audio('bgm', './assets/better-day.mp3')
     }
 
@@ -60,6 +61,8 @@ class Menu extends Phaser.Scene {
         textConfig.fixedWidth = 0
         textConfig.fontSize = '15px'
         this.add.text(150, game.config.height - 30, 'Background music credits: penguinmusic', textConfig).setOrigin(0.5)
+        textConfig.wordWrap = { width: 160 }
+        this.add.text(game.config.width - 85, game.config.height - 45, 'Sound effects credits: Envato Elements and Joshua Chivers', textConfig).setOrigin(0.5)
 
         keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN)
         keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP)
@@ -68,6 +71,7 @@ class Menu extends Phaser.Scene {
 
     update() {
         if (Phaser.Input.Keyboard.JustDown(keyDOWN)) {
+            this.sound.play('start-play', { volume: 2 })
             this.scene.start('playScene')    
         }
     }
