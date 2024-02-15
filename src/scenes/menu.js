@@ -17,6 +17,7 @@ class Menu extends Phaser.Scene {
         this.load.audio('sfx-select', './assets/sfx-select.wav')
         this.load.audio('sfx-explosion', './assets/sfx-explosion.wav')
         this.load.audio('sfx-shot', './assets/sfx-shot.wav')
+        this.load.audio('bgm', './assets/better-day.mp3')
     }
 
     create() {
@@ -56,6 +57,9 @@ class Menu extends Phaser.Scene {
         menuConfig.backgroundColor = '#00FF00'
         menuConfig.color = '#000'
         this.add.text(game.config.width/2, game.config.height/2 + 200, 'Press down to begin', menuConfig).setOrigin(0.5)
+        textConfig.fixedWidth = 0
+        textConfig.fontSize = '15px'
+        this.add.text(150, game.config.height - 30, 'Background music credits: penguinmusic', textConfig).setOrigin(0.5)
 
         keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN)
         keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP)

@@ -8,6 +8,15 @@ class Play extends Phaser.Scene {
         spawnPoint = 300
         this.lost = false
 
+        // background music
+        this.bgm = this.sound.add('bgm', { 
+            mute: false,
+            volume: 4,
+            rate: 1,
+            loop: true 
+        });
+        this.bgm.play()
+
         // add gradients for smoother transitions between the layers
         const graphics = this.add.graphics()
 
@@ -105,9 +114,11 @@ class Play extends Phaser.Scene {
 
         //check if player is lost and they want to restart or go to menu
         if(this.lost && Phaser.Input.Keyboard.JustDown(keyRESET)) {
+            this.bgm.stop()
             this.scene.restart()
         }
         if(this.lost && Phaser.Input.Keyboard.JustDown(keyMENU)) {
+            this.bgm.stop()
             this.scene.start('menuScene')
         }
 
